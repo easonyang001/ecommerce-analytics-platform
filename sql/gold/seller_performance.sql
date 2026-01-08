@@ -1,7 +1,14 @@
 CREATE OR REPLACE VIEW gold_seller_performance AS
 SELECT
-  oi.seller_id,
+  s.seller_id,
+  s.seller_city,
+  s.seller_state,
   SUM(oi.price) AS sales,
   COUNT(DISTINCT oi.order_id) AS orders
-FROM order_items oi
-GROUP BY oi.seller_id;
+FROM silver_order_items oi
+JOIN silver_sellers s
+  ON oi.seller_id = s.seller_id
+GROUP BY
+  s.seller_id,
+  s.seller_city,
+  s.seller_state;
