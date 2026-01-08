@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 
 # ===== MySQL 連線設定 =====
 MYSQL_USER = "root"
-MYSQL_PASSWORD = "olist1234"
+MYSQL_PASSWORD = "power123"
 MYSQL_HOST = "localhost"
 MYSQL_PORT = "3306"
 MYSQL_DB = "olist_dw"
@@ -33,11 +33,11 @@ items = items[["order_id","product_id","seller_id","price","freight_value"]]
 payments = payments[["order_id","payment_type","payment_value"]]
 
 #寫入 MySQL（Silver Layer）
-customers.to_sql("customers", engine, if_exists="append", index=False)
-sellers.to_sql("sellers", engine, if_exists="append", index=False)
-products.to_sql("products", engine, if_exists="append", index=False)
-orders.to_sql("orders", engine, if_exists="append", index=False)
-items.to_sql("order_items", engine, if_exists="append", index=False)
-payments.to_sql("payments", engine, if_exists="append", index=False)
+customers.to_sql("silver_customers", engine, if_exists="replace", index=False)
+sellers.to_sql("silver_sellers", engine, if_exists="replace", index=False)
+products.to_sql("silver_products", engine, if_exists="replace", index=False)
+orders.to_sql("silver_orders", engine, if_exists="replace", index=False)
+items.to_sql("silver_order_items", engine, if_exists="replace", index=False)
+payments.to_sql("silver_payments", engine, if_exists="replace", index=False)
 
 print("ETL completed: Raw → Silver loaded.")
